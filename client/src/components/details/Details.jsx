@@ -1,5 +1,6 @@
-
 import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+
 import {
     Text,
     Title,
@@ -10,19 +11,29 @@ import {
     Group,
     ActionIcon,
 } from "@mantine/core";
+
 import {
     IconBrandTwitter,
     IconBrandYoutube,
     IconBrandInstagram,
 } from "@tabler/icons-react";
+
 import classes from "./Details.module.css";
+import * as cocktailService from "../../coctails_API/cocktailsService";
 
 const social = [IconBrandTwitter, IconBrandYoutube, IconBrandInstagram];
 
 const Details = () => {
-    const cocktailId = useParams('id')
-    console.log(cocktailId);
-    
+    const { id } = useParams('id');
+
+    const [cocktail, setCocktail] = useState({});
+
+    useEffect(() => {
+        cocktailService.getOne(id)
+            .then(res => setCocktail(res.drinks[0]));
+    }, [id]);
+    console.log(cocktail);
+
     const icons = social.map((Icon, index) => (
         <ActionIcon
             key={index}
@@ -86,6 +97,6 @@ const Details = () => {
             </SimpleGrid>
         </div>
     );
-}
+};
 
-export default Details
+export default Details;

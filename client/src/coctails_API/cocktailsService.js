@@ -18,7 +18,9 @@ export const getAll = async () => {
 
 export const getOne = async (id) => {
     try {
-        const data = await fetch(`${Single_Cocktaile_URL}i=${id}`);
+        const data = await fetch(`${Single_Cocktaile_URL}?i=${id}`);
+        console.log(data);
+        
 
         const result = await data.json();
 
