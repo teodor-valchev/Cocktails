@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 import { IconHeart } from "@tabler/icons-react";
 import { Card, Image, Text, Group, Button, ActionIcon } from "@mantine/core";
 import classes from "./Item.module.css";
@@ -26,7 +28,12 @@ const Item = ({ strDrink, strDrinkThumb, idDrink }) => {
                 </Card.Section>
 
                 <Group mt="xs">
-                    <Button Link={idDrink} radius="md" style={{ flex: 1 }}>
+                    <Button
+                        component={Link}
+                        to={`/details/${idDrink}`}
+                        radius="md"
+                        style={{ flex: 1 }}
+                    >
                         Show details
                     </Button>
                     <ActionIcon variant="default" radius="md" size={36}>
