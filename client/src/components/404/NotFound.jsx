@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 import {
     Image,
     Container,
@@ -29,6 +31,8 @@ const NotFound = () => {
                         support.
                     </Text>
                     <Button
+                        component={Link}
+                        to="/"
                         variant="outline"
                         size="md"
                         mt="xl"
