@@ -5,6 +5,14 @@ import { Card, Image, Text, Group, Button, ActionIcon } from "@mantine/core";
 import classes from "./Item.module.css";
 
 const Item = ({ strDrink, strDrinkThumb, idDrink }) => {
+    const OnLikeHandler = (e) => {
+        if (e.target.parentNode.style.backgroundColor == "blue") {
+            e.target.parentNode.style.backgroundColor = "white";
+        } else {
+            e.target.parentNode.style.backgroundColor = "darkred";
+        }
+    };
+
     return (
         <div className={classes.container}>
             <Card withBorder radius="md" p="md" className={classes.card}>
@@ -37,7 +45,11 @@ const Item = ({ strDrink, strDrinkThumb, idDrink }) => {
                         Show details
                     </Button>
                     <ActionIcon variant="default" radius="md" size={36}>
-                        <IconHeart className={classes.like} stroke={1.5} />
+                        <IconHeart
+                            onClick={OnLikeHandler}
+                            className={classes.like}
+                            stroke={1.5}
+                        />
                     </ActionIcon>
                 </Group>
             </Card>
