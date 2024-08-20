@@ -13,6 +13,11 @@
     }
 }
 
+.img {
+    width: 50%;
+    height: 50%;
+    border: 5px solid;
+}
 .title {
     font-family: Greycliff CF, var(--mantine-font-family);
     color: var(--mantine-color-white);
@@ -33,6 +38,8 @@
     padding: var(--mantine-spacing-xl);
     border-radius: var(--mantine-radius-md);
     box-shadow: var(--mantine-shadow-lg);
+    width: 100%;
+    height: fit-content;
 }
 
 .social {
@@ -42,6 +49,22 @@
         color: var(--mantine-color-blue-1);
     }
 }
+
+.tags {
+    background-color: #e6f7ff; 
+    color: #1890ff; 
+    font-weight: bold; 
+    text-transform: uppercase; 
+    padding: 8px 16px; 
+    border-radius: 20px; 
+    border: none; 
+    cursor: pointer;
+    width: fit-content;
+}
+
+.tags:hover {
+      background-color: #d0efff; /* Slightly darker blue on hover */
+    }
 
 .input {
     background-color: var(--mantine-color-white);

@@ -1,98 +1,74 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 
-import {
-    Text,
-    Title,
-    SimpleGrid,
-    TextInput,
-    Textarea,
-    Button,
-    Group,
-    ActionIcon,
-} from "@mantine/core";
-
-import {
-    IconBrandTwitter,
-    IconBrandYoutube,
-    IconBrandInstagram,
-} from "@tabler/icons-react";
+import { Text, Title, SimpleGrid, TextInput, Image } from "@mantine/core";
 
 import classes from "./Details.module.css";
 import * as cocktailService from "../../coctails_API/cocktailsService";
 
-const social = [IconBrandTwitter, IconBrandYoutube, IconBrandInstagram];
-
 const Details = () => {
-    const { id } = useParams('id');
+    const { id } = useParams("id");
 
     const [cocktail, setCocktail] = useState({});
+    const [ingridients, setIngridients] = useState([]);
 
     useEffect(() => {
-        cocktailService.getOne(id)
-            .then(res => setCocktail(res.drinks[0]));
-    }, [id]);
-    console.log(cocktail);
+        cocktailService.getOne(id).then((res) => {
+            const drink = res.drinks[0];
+            const ingridientsData = Object.entries(drink)
+                .filter(
+                    ([key, value]) =>
+                        key.startsWith("strIngredient") && value !== null
+                )
+                .map(([key, value]) => value);
 
-    const icons = social.map((Icon, index) => (
-        <ActionIcon
-            key={index}
-            size={28}
-            className={classes.social}
-            variant="transparent"
-        >
-            <Icon size="1.4rem" stroke={1.5} />
-        </ActionIcon>
-    ));
+            setIngridients(ingridientsData);
+            setCocktail(drink);
+        });
+    }, [id]);
 
     return (
         <div className={classes.wrapper}>
-            <SimpleGrid cols={{ base: 1, sm: 2 }} spacing={50}>
+            <SimpleGrid cols={{ base: 1, sm: 2 }}>
                 <div>
-                    <Title className={classes.title}>Contact us</Title>
+                    <Title className={classes.title}>{cocktail.strDrink}</Title>
                     <Text className={classes.description} mt="sm" mb={30}>
-                        Leave your email and we will get back to you within 24
-                        hours
+                        {cocktail.strGlass}
                     </Text>
-
-                    <Group mt="xl">{icons}</Group>
+                    <div>
+                        <Image
+                            src={cocktail.strDrinkThumb}
+                            alt={cocktail.strDrink}
+                            className={classes.img}
+                        ></Image>
+                    </div>
+                    <div>
+                        <h4>Category</h4>
+                        <p className={classes.tags}>{cocktail.strCategory}</p>
+                    </div>
+                    <div>
+                        <h4>Glass</h4>
+                        <p className={classes.tags}>{cocktail.strGlass}</p>
+                    </div>
                 </div>
-                <div className={classes.form}>
-                    <TextInput
-                        label="Email"
-                        placeholder="your@email.com"
-                        required
-                        classNames={{
-                            input: classes.input,
-                            label: classes.inputLabel,
-                        }}
-                    />
-                    <TextInput
-                        label="Name"
-                        placeholder="John Doe"
-                        mt="md"
-                        classNames={{
-                            input: classes.input,
-                            label: classes.inputLabel,
-                        }}
-                    />
-                    <Textarea
-                        required
-                        label="Your message"
-                        placeholder="I want to order your goods"
-                        minRows={4}
-                        mt="md"
-                        classNames={{
-                            input: classes.input,
-                            label: classes.inputLabel,
-                        }}
-                    />
 
-                    <Group justify="flex-end" mt="md">
-                        <Button className={classes.control}>
-                            Send message
-                        </Button>
-                    </Group>
+                <div className={classes.form}>
+                    <h3>Ingridients</h3>
+                    {ingridients.map((x) => (
+                        <TextInput
+                            p="10px"
+                            value={x}
+                            classNames={{
+                                input: classes.input,
+                                label: classes.inputLabel,
+                            }}
+                        />
+                    ))}
+
+                    <h3>Instructions</h3>
+                    <span>
+                        {cocktail.strInstructions || cocktail.strInstructionsIT}
+                    </span>
                 </div>
             </SimpleGrid>
         </div>
