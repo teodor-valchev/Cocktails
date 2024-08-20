@@ -6,7 +6,7 @@ import classes from "./Item.module.css";
 
 const Item = ({ strDrink, strDrinkThumb, idDrink }) => {
     const OnLikeHandler = (e) => {
-        if (e.target.parentNode.style.backgroundColor == "blue") {
+        if (e.target.parentNode.style.backgroundColor == "darkred") {
             e.target.parentNode.style.backgroundColor = "white";
         } else {
             e.target.parentNode.style.backgroundColor = "darkred";

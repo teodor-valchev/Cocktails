@@ -10,9 +10,16 @@ const Catalog = () => {
         cocktailsService.getAll().then((res) => setCocktails(res.drinks));
     }, []);
 
-    return cocktails.map((cocktail) => (
-        <Item key={cocktail.idDrink} {...cocktail} />
-    ));
+    return (
+        <>
+            <h1 style={{ textAlign: "center" }}>Cocktails</h1>
+            <div>
+                {cocktails.map((cocktail) => (
+                    <Item key={cocktail.idDrink} {...cocktail} />
+                ))}
+            </div>
+        </>
+    );
 };
 
 export default Catalog;
