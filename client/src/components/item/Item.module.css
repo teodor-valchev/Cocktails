@@ -5,6 +5,11 @@
     );
 }
 
+.container {
+    display: inline-flex;
+    padding: 4%;
+}
+
 .section {
     border-bottom: rem(1px) solid
         light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-4));

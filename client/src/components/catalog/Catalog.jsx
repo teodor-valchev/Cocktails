@@ -6,17 +6,12 @@ import Item from "../item/Item.jsx";
 const Catalog = () => {
     const [cocktails, setCocktails] = useState([]);
 
-    console.log(cocktails);
-    
-
     useEffect(() => {
         cocktailsService.getAll().then((res) => setCocktails(res.drinks));
     }, []);
 
     return cocktails.map((cocktail) => (
-        <Item
-            key={cocktail.idDrink}
-            {...cocktail} />
+        <Item key={cocktail.idDrink} {...cocktail} />
     ));
 };
 
